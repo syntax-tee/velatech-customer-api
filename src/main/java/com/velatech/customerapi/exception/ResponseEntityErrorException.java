@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 
 public class ResponseEntityErrorException   extends RuntimeException {
     private ResponseEntity<CustomerResponse> responseEntity;
-    private CustomerResponse stationBankAccountResponse;
+    private CustomerResponse customerResponse;
 
 
     public ResponseEntityErrorException(ResponseEntity<CustomerResponse> errorResponse) {
@@ -14,7 +14,7 @@ public class ResponseEntityErrorException   extends RuntimeException {
 
 
     public ResponseEntityErrorException(CustomerResponse errorResponse) {
-        this.stationBankAccountResponse = errorResponse;
+        this.customerResponse = errorResponse;
     }
 
     public ResponseEntity<CustomerResponse> getResponseEntity() {
@@ -22,6 +22,6 @@ public class ResponseEntityErrorException   extends RuntimeException {
     }
 
     public CustomerResponse getErrorResponse() {
-        return stationBankAccountResponse;
+        return customerResponse;
     }
 }
