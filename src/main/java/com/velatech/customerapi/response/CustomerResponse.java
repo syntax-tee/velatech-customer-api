@@ -2,7 +2,6 @@ package com.velatech.customerapi.response;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import jdk.nashorn.internal.objects.annotations.Constructor;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
