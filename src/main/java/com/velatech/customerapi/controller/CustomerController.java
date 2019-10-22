@@ -3,16 +3,14 @@ package com.velatech.customerapi.controller;
 
 import com.velatech.customerapi.dto.CustomerDto;
 import com.velatech.customerapi.response.customer.Payload;
+import com.velatech.customerapi.respository.CustomerRepository;
 import com.velatech.customerapi.service.CustomerService;
 import com.velatech.customerapi.response.CustomerResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
@@ -21,6 +19,8 @@ public class CustomerController {
 
     @Autowired
     private CustomerService customerService;
+
+
 
 
     CustomerController(CustomerService customerService){
@@ -44,5 +44,12 @@ public class CustomerController {
             return new ResponseEntity<CustomerDto>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(customerDto, HttpStatus.OK);
+    }
+
+
+
+    @GetMapping(path = "/stats", produces = {MediaType.APPLICATION_JSON_VALUE})
+    public  ResponseEntity<CustomerDto> fetchCardHits(@RequestParam(value = "start", defaultValue = "0") int start, @RequestParam(value = "limit", defaultValue = "10") int limit){
+        return  new ResponseEntity<CustomerDto>(HttpStatus.OK);
     }
 }
