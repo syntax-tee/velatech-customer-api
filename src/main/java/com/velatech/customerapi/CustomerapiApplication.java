@@ -1,5 +1,7 @@
 package com.velatech.customerapi;
 
+import com.velatech.customerapi.exception.ResponseEntityErrorHandler;
+import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -19,6 +21,11 @@ public class CustomerapiApplication {
         errorHandler.setMessageConverters(restTemplate.getMessageConverters());
         restTemplate.setErrorHandler(errorHandler);
         return restTemplate;
+    }
+
+    @Bean
+    public ModelMapper modelMapper() {
+        return new ModelMapper();
     }
 
 

@@ -19,9 +19,11 @@ public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private boolean success;
+    private boolean  success;
     private  String  scheme;
     private  String   type;
     private  String   bank;
+
+
 
 }

@@ -1,6 +1,7 @@
 package com.velatech.customerapi.service.impl;
 
 import com.velatech.customerapi.client.BinListClient;
+import com.velatech.customerapi.dto.CustomerDto;
 import com.velatech.customerapi.response.CustomerResponse;
 import com.velatech.customerapi.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +16,11 @@ public class CustomerServiceImpl implements CustomerService {
     BinListClient binListClient;
 
     CustomerServiceImpl(){
-        binListClient = new BinListClient();
+        binListClient = BinListClient.getInstance();
     }
 
     @Override
-    public ResponseEntity<CustomerResponse> verifyCardService(long bin) {
-        return binListClient.verifyCard(bin);
+    public CustomerResponse verifyCardService(long bin) {
+        return binListClient.verifyCustomerCard(bin);
     }
 }

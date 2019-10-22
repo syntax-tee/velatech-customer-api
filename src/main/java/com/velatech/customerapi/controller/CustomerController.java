@@ -1,14 +1,14 @@
 package com.velatech.customerapi.controller;
 
 
-import com.velatech.customerapi.respository.CustomerRepository;
+import com.velatech.customerapi.dto.CustomerDto;
+import com.velatech.customerapi.response.customer.Payload;
 import com.velatech.customerapi.service.CustomerService;
 import com.velatech.customerapi.response.CustomerResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,12 +27,22 @@ public class CustomerController {
         this.customerService = customerService;
     }
 
-    @GetMapping(path = "/verify/{bin}", headers = "Accept-Version: 3", produces = {MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<CustomerResponse> verifyCard(@PathVariable long  bin){
-        ResponseEntity<CustomerResponse> customerResponse =  customerService.verifyCardService(bin);
-        if(customerResponse.getStatusCode().is4xxClientError()){
-            return new ResponseEntity<CustomerResponse>(HttpStatus.NOT_FOUND);
+    @GetMapping(path = "/verify/{bin}", produces = {MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity<CustomerDto> verifyCard(@PathVariable long  bin){
+        CustomerResponse customerResponse  =  customerService.verifyCardService(bin);
+        CustomerDto customerDto = new CustomerDto();
+        Payload payload = new Payload();
+
+        if(customerResponse!=null){
+            customerDto.setId(0L);
+            customerDto.setSuccess(true);
+            payload.setBank(customerResponse.getBank().getName() != null ? customerResponse.getBank().getName():" ");
+            payload.setScheme(customerResponse.getScheme() != null ? customerResponse.getScheme() :" ");
+            payload.setType(customerResponse.getType() != null ? customerResponse.getType() : "");
+            customerDto.setPayload(payload);
+        }else {
+            return new ResponseEntity<CustomerDto>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<CustomerResponse>((MultiValueMap<String, String>) customerResponse, HttpStatus.OK);
+        return new ResponseEntity<>(customerDto, HttpStatus.OK);
     }
 }

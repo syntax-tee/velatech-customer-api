@@ -1,4 +1,4 @@
-package com.velatech.customerapi;
+package com.velatech.customerapi.exception;
 
 import com.velatech.customerapi.response.CustomerResponse;
 import org.springframework.http.HttpStatus;
